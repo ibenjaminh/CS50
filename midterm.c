@@ -3,6 +3,9 @@
 //
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
 // horse array
 
 
@@ -57,10 +60,25 @@ bool trifectaBox(int *myArray, int *userArray) {
 
 
 // shuffle array function
-for (int i = 0; i < 4; i++) {
-     int randomIndex = rand() % 4;
-     int temp = myArray[i];
+void readysetgo(int *myArray, int n) {
+     static int init=0;
+     time_t t;
+     if (!init) {
+          srand((unsigned) time(&t));
+          init = 1;
+     }
 
+     // Loop over array.
+     for (int i = 0; i < n; i++) {
+          // Get a random index of the array past the current index.
+          // ... The argument is an exclusive bound.
+          //     It will not go past the array's end.
+          int randomValue = i + (rand() % (n - i) );
+          // Swap the random element with the present element.
+          int randomElement = myArray[randomValue];
+          myArray[randomValue] = myArray[i];
+          myArray[i] = randomElement;
+     }
 }
 
 
@@ -87,7 +105,10 @@ int main(void) {
     int myArray[] = {1, 2, 3, 4};
     int userArray[3];
 
-    int choice;
+    char* choice;
+
+    readysetgo(myArray, 4);
+
 
     while (1) {
         printf("Choose an option: \n");
@@ -97,7 +118,11 @@ int main(void) {
         printf("4. Bet Trifecta Box\n");
         printf("5. Exit\n");
 
-        scanf("%d", &choice);
+        scanf("%s", choice);
+
+        // tokenize  user input
+
+
 
         if (choice == 1) {
             printf("Selected Exacta\nEnter 2 numbers: ");
