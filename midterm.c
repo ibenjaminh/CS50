@@ -103,31 +103,43 @@ int main(void) {
     int trifectaBetBoxWin = 180;
 
     int myArray[] = {1, 2, 3, 4};
-    int userArray[3];
 
-    char* choice;
 
-    readysetgo(myArray, 4);
 
 
     while (1) {
-        printf("Choose an option: \n");
-        printf("1. Bet Exacta\n");
-        printf("2. Bet Exacta Box\n");
-        printf("3. Bet Trifecta\n");
-        printf("4. Bet Trifecta Box\n");
-        printf("5. Exit\n");
 
-        scanf("%s", choice);
+        readysetgo(myArray, 4);
+        printf("\n\nTHE WINNING ORDER IS: %d %d %d %d\n\n", myArray[0], myArray[1], myArray[2], myArray[3]);
 
-        // tokenize  user input
+        printf("Choose an option (Type of bet # #: \n");
+        printf("Exacta # #\n");
+        printf("Exactabox # #\n");
+        printf("Trifecta # # #\n");
+        printf("Trifectabox # # #\n");
+        printf("Balance \n");
+        printf("Exit\n");
 
 
 
-        if (choice == 1) {
-            printf("Selected Exacta\nEnter 2 numbers: ");
-            scanf("%d %d", &userArray[0], &userArray[1]);
+        char choice[50];
+        char *typeBets;
+        int userArray[3];
 
+
+        fgets(choice, 50, stdin);
+
+        sscanf(choice, "%s %d %d %d", typeBets, &userArray[0], &userArray[1], &userArray[2]);
+        printf("Selected Option: %s\n", typeBets);
+
+
+
+
+        if (strcmp(typeBets, "Exacta") == 0) {
+
+            printf("Selected 2 racers: %d %d\n", userArray[0], userArray[1]);
+            printf("The winning order is: %d %d %d %d\n", myArray[0], myArray[1], myArray[2], myArray[3]);
+            printf("This bet costs $%d\n", exactaBet);
             // if user has enough money to place the bet
             if (balance >= exactaBet) {
                  balance -= exactaBet;
@@ -148,10 +160,10 @@ int main(void) {
         }
 
 
-        else if (choice == 2) {
-            printf("Selected Exacta Box\nEnter 2 numbers: ");
-            scanf("%d %d", &userArray[0], &userArray[1]);
-
+        else if (strcmp(typeBets, "Exactabox") == 0) {
+            printf("Selected 2 racers: %d %d\n", userArray[0], userArray[1]);
+            printf("The winning order is: %d %d %d %d\n", myArray[0], myArray[1], myArray[2], myArray[3]);
+            printf("This bet costs $%d\n", exactaBoxBet);
             // if user has enough money to place the bet
             if (balance >= exactaBoxBet) {
                  balance -= exactaBoxBet;
@@ -170,10 +182,10 @@ int main(void) {
         }
 
 
-        else if (choice == 3) {
-            printf("Selected Trifecta\nEnter 3 numbers: ");
-            scanf("%d %d %d", &userArray[0], &userArray[1], &userArray[2]);
-
+        else if (strcmp(typeBets, "Trifecta") == 0) {
+            printf("Selected 3 racers: %d %d %d\n", userArray[0], userArray[1], userArray[2]);
+            printf("The winning order is: %d %d %d %d\n", myArray[0], myArray[1], myArray[2], myArray[3]);
+            printf("This bet costs $%d\n", trifectaBet);
             // if user has enough money to place the bet
             if (balance >= trifectaBet) {
                  balance -= trifectaBet; // subtract the bet amount from the balance
@@ -192,10 +204,10 @@ int main(void) {
 
 
 
-        else if (choice == 4) {
-            printf("Selected Trifecta Box\nEnter 3 numbers: ");
-            scanf("%d %d %d", &userArray[0], &userArray[1], &userArray[2]);
-
+        else if (strcmp(typeBets, "Trifectabox") == 0) {
+            printf("Selected 3 racers: %d %d %d\n", userArray[0], userArray[1], userArray[2]);
+            printf("The winning order is: %d %d %d %d\n", myArray[0], myArray[1], myArray[2], myArray[3]);
+            printf("This bet costs $%d\n", trifectaBetBox);
             if (balance >= trifectaBet) {
                  balance -= trifectaBet;
 
@@ -212,9 +224,12 @@ int main(void) {
                  printf("Not enough money!");
         }
 
+        else if (strcmp(typeBets, "Balance") == 0) {
+            printf("Your balance is: $%d\n", balance);
+        }
 
 
-        else if (choice == 5) {
+        else if (strcmp(typeBets, "Exit") == 0) {
             printf("Exiting\n");
             break;
         }
