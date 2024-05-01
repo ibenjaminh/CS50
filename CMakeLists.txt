@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.27)
-project(test C)
+project(CS50 C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(test main.c
-        midterm.c)
+add_executable(CS50 midterm.c)
