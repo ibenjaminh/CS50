@@ -123,16 +123,29 @@ int main(void) {
 
 
         char choice[50];
-        char *typeBets;
+        char* token;
+        char typeBets[50];
         int userArray[3];
+        int i = 0; // this will keep track of what token we are on
 
 
-        fgets(choice, 50, stdin);
+        fgets(choice, 50, stdin); // entire line of input
 
-        sscanf(choice, "%s %d %d %d", typeBets, &userArray[0], &userArray[1], &userArray[2]);
-        printf("Selected Option: %s\n", typeBets);
+        token = strtok(choice, " "); // split the string by space
+        strcpy(typeBets, token); // copy the first token to typeBets
 
 
+
+        while (token != NULL) { // basically this the strtok(NULL, " ") part is going to the next token but we start at the first token and then i will be 1 meaning its an integer now then we convert the string to an integer
+            if (i != 0) { // if its NOT the first token
+                userArray[i - 1] = atoi(token);
+            }
+
+            token = strtok(NULL, " "); // IF IT IS the FIRST THEN get next token
+            i++; // after we are in next token up 1 to keep track
+        }
+
+        printf("Selected option: %s\n", typeBets);
 
 
         if (strcmp(typeBets, "Exacta") == 0) {
